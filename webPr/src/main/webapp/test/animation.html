@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>애니메이션</title>
+<style>
+@keyframes textColoranimation{
+0% {color : blue;}
+30%{color : green;}
+100%{color : red;}
+
+
+}
+
+span {
+animation-name : textColoranimation;
+animation-duration : 5s;
+animation-iteration-count : infinite;
+ 
+}
+
+@keyframes bomb{
+form {font-size : 500%;}
+to {font-size : 100%;}
+}
+
+</style>
+
+</head>
+<body>
+<p>움직이는 <span>애니메이션</span> 만들기</p>
+<hr>
+<p><span>꽝!</span>글자에 마우스를 올려보세요.</p>
+
+</body>
+</html>

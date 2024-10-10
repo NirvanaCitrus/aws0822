@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 변수 학습하기</title>
+<script>
+let x;
+
+function f(){
+	let y; // 함수 안에 존재 함으로 지역변수 y
+	
+	x=10;
+	y=20; // 설정한 변수에 20을 담겠다 선언.
+	z=30;
+	
+	if (y==20) { // y=20 이므로 아래의 if문이 실행 b의 초기값이 40이지만 증가한다는 코드가 있음으로 41로 설정되어서 b의 값이 출력.
+		let b = 40; // 블럭 변수 b
+		b++;
+		document.write("b의 값은?" + b);
+		document.write("<br>");
+		// 블럭변수 끝
+	}
+	document.write("y값은?" + y); // y변수에 변동이 없음으로 20 그대로 출력.
+	document.write("<br>");
+	// 지역변수 끝
+}
+f(); // 함수호출
+
+document.write("x값은?" + x); // x값도 해당하는 바가 없음으로 10으로 그대로 출력.
+document.write("<br>");
+document.write("z값은?" + z);
+
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>연산자</title>
+</head>
+<body>
+<script>
+let x = 50;
+let y = 3;
+
+let total = 0;
+let z = x+y;
+document.write("두 수의 합은?" + z);
+document.write("<br>");
+let k = x-y;
+document.write("두 수의 차는?" + k);
+document.write("<br>");
+let g = x*y;
+document.write("두 수의 곱은?" + g);
+document.write("<br>");
+let h = x/y;
+document.write("두 수의 나누기는?" + h);
+document.write("<br>");
+let s = x%y;
+document.write("두 수의 나머지는?" + s);
+document.write("<br>");
+
+let q = x++;
+document.write("후위연산자의 값은 무엇인가요?" + q);
+document.write("<br>");
+
+let p = ++x;
+document.write("전위연산자의 값은 무엇인가요?" + p);
+document.write("<br>");
+document.write("a+=b의 뜻? a=a+b 라는 뜻");
+document.write("<br>");
+
+document.write("조건연산자");
+document.write("<br>");
+let a=2;
+let b=3;
+
+let c = (a>b)? "a가 b보다 크다" : "a가 b보다 작다";
+document.write(c);
+
+/* -- 문제
+영어 점수가 90점 이상이면 a
+점수가 80점 이상이면 b
+점수가 70점 이상이면 c
+점수가 60점 이상이면 d
+점수가 60점 미만이면 f로
+나타나는 코드를 작성하시오 */
+
+let eng=0;
+eng = 89;
+
+if (eng>=90) {
+	document.write("A");
+} else if (eng>=80 && eng<=90) {
+	document.write("B");
+} else if (eng>=70 && eng<=80) {
+	document.write("C");
+} else if (eng>=60 && eng<=70) {
+	document.write("D");
+} else if (eng<60) {
+	document.write("F");
+} else {
+	document.write("점수 미달입니다.");
+}
+
+
+</script>
+
+</body>
+</html>
