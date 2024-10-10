@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<div class="main">메인페이지 입니다.....</div>
+<div class="main">메인페이지 입니다....yhhhhh.</div>
 
 </body>
 </html>
