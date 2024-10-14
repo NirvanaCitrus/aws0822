@@ -107,6 +107,21 @@ function chk() {
 <input type="text" name="nm" id="nm" onblur="chk();"> <!-- 그 위치를 떠날때 감지하는 이벤트 -->
 
 
+<script>
+let nm = document.getElementById("nm");
+nm.onblur = function(){
+	if (nm.value ==""){
+		nm.focus();
+	}
+		
+}
+
+
+
+
+</script>
+
+
 </form>
 
 
