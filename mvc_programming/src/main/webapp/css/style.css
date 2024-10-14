@@ -1,0 +1,182 @@
+@charset "UTF-8";
+
+
+header {
+	width:100%;
+	height: 100px;
+	text-align:center;
+	--background-color:white;
+}
+
+nav {
+	width: 15%; 
+	height: 300px; 
+	float: left;
+	--background-color:white;
+
+}
+
+section {
+	width: 70%;
+	height: 300px;
+	float: left;
+	--background:olivedrab;
+
+
+}
+
+aside {
+	width: 15%;
+	height: 300px;
+	float: left;
+	--background:orange;
+
+}
+
+footer {
+	width: 100%;
+	height: 15%;
+	clear: both;
+	text-align:center;
+	--background:plum;
+
+
+
+}
+
+body {
+	--background-color:mistyrose;
+	margin:0px;
+	padding:0px;
+}
+
+table {
+	margin:0px;
+	padding:0px;
+	border-collapse:collapse;
+
+}
+
+
+th, td {
+	--background-color:yellow;
+	color:#000080;
+	font-weight:bold;
+	margin:0px;
+	padding:0px;
+	border-bottom:1px solid blue;
+
+}
+
+.idcolor {
+	color : #FF6600;
+	
+}
+
+#name {
+	color : red;
+	/* font-size : 30px; */
+}
+
+input[type=password] {
+	background-color : rgb(192, 192, 192);
+	border : 2px solid skyblue;
+	border-radius : 5px;
+}
+
+a:link {
+	color : green;
+	
+}
+
+a:visited {
+	color : yellow;
+	
+}
+
+.main {
+	width : 600px;
+	height : 300px;
+	text-align : center;
+	border : 1px solid red;
+	
+	
+}
+
+input[type=text] {
+	color : red;
+	border : 2px solid skyblue;
+	border-radius : 5px;
+	
+}
+
+input[type=email] {
+	border : 2px solid skyblue;
+	border-radius : 5px;
+	
+}
+
+input[type=number] {
+	border : 2px solid skyblue;
+	border-radius : 5px;
+	
+}
+
+select {
+	border : 2px solid skyblue;
+	border-radius : 5px;
+	
+}
+
+input[type=checkbox] {
+	display : none;
+	
+}
+
+input[type=checkbox]+label {
+	display : inline-block;
+	border : 2px solid skyblue;
+	position : relative;
+	width : 30px;
+	height : 30px;
+}
+
+label {
+	font-size : 10px;
+}
+
+input[id="check1"]:checked+label::after,input[id="check2"]:checked+label::after,input[id="check3"]:checked+label::after{
+	content : "♡";
+	font-size : 20px;
+	width : 20px;
+	height : 20px;
+	text-align : center;
+	position : absolute;
+	left : 0;
+	top : 0;
+}
+
+input[type=radio] {
+	display : none;
+}
+
+input[type=radio]+label {
+	display : inline-block;
+	cursor : pointer;
+	width : 50px;
+	height : 20px;
+	border : 1px solid #333;
+	line-height : 20px;
+	text-align : center;
+	font-weight : bold;
+	font-size : 12px;
+	background : gray;
+	color : black;
+	background-color : skyblue;
+	
+}
+
+input[type=radio]:checked+label {
+	background-color : #FF6600;
+	color : white;
+}
