@@ -56,12 +56,41 @@ body {
 }
 
 input[type=text] {
-	background : gray;
+	background : white;
 }
 
 
 
 </style>
+
+<script>
+function check() {
+	// 이름으로 객체 찾기
+	let memberid = document.getElementsByName("memberid");
+	let memberpwd = document.getElementsByName("memberpwd");
+	//alert(memberid[0].value);
+	//alert(memberpwd[0].value);
+	if (memberid[0].value == "") {
+		alert("아이디를 입력해주세요");
+		memberid[0].focus();
+		return;
+		
+	}else if (memberpwd[0].value == "") {
+		alert("비밀번호를 입력해주세요");
+		memberpwd[0].focus();
+		return;
+	}
+	
+	var fm = document.frm;
+	fm.action = "<%=request.getContextPath()%>/member/memberLoginAction.aws";  // 가상경로 지정 action은 처리하는 의미
+	fm.method = "post";
+	fm.submit();
+	
+	
+	return;
+}
+
+</script>
 
 
  </HEAD>
@@ -74,7 +103,7 @@ input[type=text] {
 	<article>
 	<div id="parent">
 	<div id ="child">
-<form name="frm" action=".test0920_result.html" method="post">
+<form name="frm">
 
 	<style>
 		table {
@@ -89,19 +118,19 @@ input[type=text] {
 	<tr> 
 	<th>아이디</th>
 			<td>
-				<input type="text" name="memberId" style="width:150px;" maxlength="30">
+				<input type="text" name="memberid" style="width:150px;" maxlength="30">
 			</td>
 	</tr>
 	<tr> 
 	<th>비밀번호</th>
 			<td>
-				<input type="password" name="memberPwd" style="width:150px;" maxlength="30">
+				<input type="password" name="memberpwd" style="width:150px;" maxlength="30">
 			</td>
 	</tr>
 	
 	<tr>
 		<td colspan=2 style="text-align:center;">
-			<input type="button" name="btn" value="로그인">
+			<input type="button" name="btn" value="로그인" onclick="check();">
 		</td>
 	</tr>
 

@@ -2,12 +2,16 @@ package mvc.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import mvc.dbcon.Dbconn;
+import mvc.vo.MemberVo;
 
 public class MemberDao {  // mvc 방식으로 가기전에 첫번쨰 model 1 방식
 	
 	private Connection conn;  // 전역변수로 사용 페이지 어느곳에서도 사용할 수 있다.
+	private PreparedStatement pstmt;
 	
 	// 생성자를 통해서 db연결해서 메소드 사용
 	public MemberDao() {
@@ -23,7 +27,7 @@ public class MemberDao {  // mvc 방식으로 가기전에 첫번쨰 model 1 방
 			 String memberPhone, String memberEmail, String memberInHobby) {
 		int value = 0;  // 메소드 지역변수 결과값을 담는다
 		String sql = "";
-		PreparedStatement pstmt = null; // 쿼리 구문클래스 선언
+		//PreparedStatement pstmt = null; // 쿼리 구문클래스 선언
 		
 			try{
 				
@@ -61,6 +65,49 @@ public class MemberDao {  // mvc 방식으로 가기전에 첫번쨰 model 1 방
 		
 	}
 	
+	 // 로그인을 통해서 회원정보를 담아오는 메소드이다.
+	 public MemberVo memberLoginCheck(String memberId, String memberPwd) {
+		 MemberVo mv = null;
+		 String sql = "select * from member where memberid = ? and memberpwd = ?";
+		 ResultSet rs = null;  // db에서 결과 데이터를 받아오는 전용 클래스 
+		 
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 //System.out.println("쿼리 생성?"+sql); 쿼리 디버깅
+			 pstmt.setString(1, memberId);
+			 pstmt.setString(2, memberPwd);
+			 rs = pstmt.executeQuery();
+			 //System.out.println("rs생성?"+rs); rs 객체 디버깅
+			 
+			 if (rs.next() == true) {  // 커서가 이동해서 데이터 값이 있으면  if(rs.next()) 와 같은 표현
+				 String memberid = rs.getString("memberId");  // 결과값에서 아이디값을 뽑는다
+				 int midx = rs.getInt("midx");  			  // 결과값에서 회원번호를 뽑는다
+				 String membername = rs.getString("membername");
+				 
+				 mv = new MemberVo();  // 화면에 가지고 갈 데이터를 담을 VO객체생성
+				 mv.setMemberid(memberid);  // mv 객체에 옮겨 담는다
+				 mv.setMidx(midx);
+				 mv.setMembername(membername);
+			 }
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			
+				e.printStackTrace();
+			}			
+		}		 
+		 //System.out.println("mv생성?"+mv); mv 객체 디버깅
+		 return mv;
+	 }
+	 
+	 
+	 
+	 
 	
 	
 	

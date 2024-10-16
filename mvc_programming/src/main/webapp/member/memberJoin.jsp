@@ -5,6 +5,7 @@
  <HEAD>
   <TITLE> 회원가입페이지 </TITLE>
   <link href="../css/style.css" type="text/css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- CDN주소 -->
   
   <script>
   // alert("test"); // 디버깅용 코드
@@ -100,6 +101,14 @@
 	  return flag;
   }
   
+  $(document).ready(function(){
+	  $("#btn").click(function(){
+		  alert("중복체크버튼 클릭확인");
+		  
+	  });
+	  
+  });
+  
   </script>
 
 
@@ -128,6 +137,7 @@
 		<th class="idcolor">아이디</th>
 				<td>
 					<input type="text" name="memberid" style="width:200px;" maxlength="30" placeholder="아이디를 입력하세요">
+					<button type="button" id="btn">아이디 중복 체크</button>
 				</td>
 	</tr>
 	<tr> 

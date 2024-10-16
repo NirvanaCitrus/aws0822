@@ -22,7 +22,7 @@ function autoScroll() {
 
 
 </head>
-<body onload="startScroll(1000);">
+<!-- <body onload="startScroll(1000);"> -->
 <h3>윈도우 위치와 크기 조절</h3>
 
 <button onclick="window.moveBy(-10,0);">left</button>
@@ -32,7 +32,7 @@ function autoScroll() {
 <button onclick="resizeBy(10,10);">+</button>
 <button onclick="resizeBy(-10,-10);">-</button>
 
-<hr>
+<!-- <hr>
 무<br>
 궁<br>
 화<br>
@@ -103,7 +103,9 @@ function autoScroll() {
 습<br>
 니<br>
 다<br>
-
+ -->
+ 
+ <a href="http://localhost/webPr/test/javascript_history.jsp">이동</a>
 
 </body>
 </html>

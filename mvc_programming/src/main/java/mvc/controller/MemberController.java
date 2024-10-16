@@ -27,7 +27,7 @@ public class MemberController extends HttpServlet {
 		// 전체주소를 추출
 		String uri = request.getRequestURI();
 		System.out.println("uri"+uri);		// uri/mvc_programming/member/memberJoinAction.aws
-		String[] location = uri.split("/");
+		String[] location = uri.split("/");  // 위의 주소에서 끝부분에 있는 글자가 무엇인지 물어보는 것 
 		
 		if(location[2].equals("memberJoinAction.aws")) {  //4번째 방의 값이 memberJoinAction.aws이면 처리를 하라.
 			
@@ -82,7 +82,7 @@ public class MemberController extends HttpServlet {
 				//System.out.println("msg는?" + msg);
 				
 		}else if(location[2].equals("memberJoin.aws")){
-			System.out.println("들어왔나?");
+			//System.out.println("들어왔나?");
 			
 			String uri2="/member/memberJoin.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(uri2);  // 스펠링 꼭 체크할것 
@@ -92,10 +92,50 @@ public class MemberController extends HttpServlet {
 		
 		
 	  }else if(location[2].equals("memberLogin.aws")) {
-		  System.out.println("들어왔나?");
+		  //System.out.println("들어왔나?");
 		  String uri3="/member/memberLogin.jsp";
 		  RequestDispatcher rd = request.getRequestDispatcher(uri3);
 		  rd.forward(request, response);
+	  }else if (location[2].equals("memberLoginAction.aws")) {
+		  
+		  System.out.println("memberLoginAction 들어왔나?");
+		  
+		  String memberId = request.getParameter("memberid");
+		  String memberPwd = request.getParameter("memberpwd");
+		  
+		  
+		  MemberDao md = new MemberDao();
+		  MemberVo mv = md.memberLoginCheck(memberId, memberPwd);
+		  //System.out.println("mv객체가 생겼나요?" + mv); mv 객체가 생겼나 디버깅
+		  
+		  if (mv == null) {
+			  response.sendRedirect(request.getContextPath()+"/member/memberLogin.aws");  // 해당 주소로 다시 가세요
+			  
+		  }else {
+			  // 해당되는 로그인 사용자가 있으면 세션에 회원정보 담아서 메인으로 가라
+			  String mid = mv.getMemberid();  // 아이디 꺼내기
+			  int midx = mv.getMidx();  // 회원번호 꺼내기
+			  String memberName = mv.getMembername();  // 이름 꺼내기
+			  
+			  HttpSession session = request.getSession();
+			  session.setAttribute("mid", mid);
+			  session.setAttribute("midx", midx);
+			  session.setAttribute("memberName", memberName);
+			  
+			  response.sendRedirect(request.getContextPath()+"/");  // 로그인 되었으면 메인으로 가세요
+		  }		  
+	  }else if (location[2].equals("memberLogout.aws")) {
+		  System.out.println("memberLogout");
+		  
+		  // 세션 삭제
+		  HttpSession session = request.getSession();  // 세션 객체 이용
+		  session.removeAttribute("mid");
+		  session.removeAttribute("midx");
+		  session.removeAttribute("memberName");
+		  session.invalidate();
+		  
+		  response.sendRedirect(request.getContextPath()+"/");  // 초기화 하고 다시 메인으로 가기 
+		  
 	  }
 	}
 
