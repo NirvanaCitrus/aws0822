@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"  %>
+<%@ page import="mvc.vo.*"  %>
+<% 
+// ArrayList 객체를 화면까지 가져왔다.
+ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");  // 오브젝트로 나오니까 강제 형변환.
+
+
+//System.out.println("첫객체 아이디 출력?"+alist.get(0).getMemberid());
+
+
+
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,32 +74,33 @@ tbody tr:hover {
 		</tr>	
 	</thead>
 	<tbody>
+		<%-- <%for(int i = 0; i< alist.size(); i++) { %>
 		<tr>
-			<td>3</td>
-			<td>test</td>
-			<td>홍길동</td>
-			<td>남자</td>
-			<td>2024-09-26</td>
+			<td><%=alist.get(i).getMidx() %></td>
+			<td><%=alist.get(i).getMemberid() %></td>
+			<td><%=alist.get(i).getMembername() %></td>
+			<td><%=alist.get(i).getMembergender() %></td>
+			<td><%=alist.get(i).getWriteday() %></td>
 		</tr>
+		<%} %> --%>
+		
+		<%
+		int num=0;
+		for(MemberVo mv : alist) { %>
 		<tr>
-			<td>4</td>
-			<td>test2</td>
-			<td>홍길자</td>
-			<td>여자</td>
-			<td>2024-09-26</td>
+			<td><%=mv.getMidx() %></td>
+			<td><%=mv.getMemberid() %></td>
+			<td><%=mv.getMembername() %></td>
+			<td><%=mv.getMembergender() %></td>
+			<td><%=mv.getWriteday().substring(0, 10) %></td>
 		</tr>
-		<tr>
-			<td>5</td>
-			<td>test3</td>
-			<td>김갑수</td>
-			<td>남자</td>
-			<td>2024-09-26</td>
-		</tr>			
-	
+		<%
+		num = num+1;
+		} %>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="5">총 3명입니다.</td>
+			<td colspan="5">총 <%=num %>명입니다.</td>
 		</tr>		
 	
 	</tfoot>

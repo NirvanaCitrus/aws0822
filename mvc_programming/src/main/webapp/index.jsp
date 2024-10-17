@@ -76,7 +76,14 @@ if(session.getAttribute("midx") != null) {  // 로그인이 되었으면
 
 <div>
 <a href="<%=request.getContextPath() %>/member/memberLogin.aws">회원로그인 페이지 가기</a>
-회원로그인하기
+</div>
+
+<div>
+<a href="<%=request.getContextPath() %>/member/memberList.aws">회원목록가기</a>
+</div>
+
+<div>
+<a href="<%=request.getContextPath() %>/board/boardList.aws">게시판목록가기</a>
 </div>
 
 </body>
