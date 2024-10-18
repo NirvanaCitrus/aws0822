@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 작업</title>
+<style>
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+section.notice{
+	padding: 80px 0;
+}
+
+.page-title {
+  margin-bottom: 60px;
+}
+
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+}
+
+#board-search .search-window {
+padding: 15px 0;
+background-color: gray;
+}
+
+#board-search .search-window .search-wrap{
+position: relative;
+margin: 0 auto;
+width: 80%;
+max-width: 564px;
+}
+
+#board-search .search-window .search-wrap input {
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input:focus {
+border-color: #333;
+outline: 0;
+border-width: 1px;
+}
+
+#board-search .search-window .search-wrap .btn {
+position: absolute;
+right: 0;
+top: 0;
+bottom: 0;
+width: 108px;
+padding: 0;
+font-size: 16px;
+}
+
+
+.board-table{
+font-size: 13px;
+width: 100%;
+border-top: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+
+}
+
+.board-table a {
+color: #333;
+display: inline-block;
+line-height: 1.4;
+word-break: break-all;
+vertical-align: middle;
+}
+
+.board-table a:hover{
+text-decoration: underline;
+}
+
+.board-table th {
+text-align: center;
+}
+
+.board-table .th-num {
+width: 100px;
+text-align: center;
+
+}
+
+.board-table .th-date {
+width: 200px;
+
+}
+
+.board-table th, .board-table td{
+padding: 14px 0;
+}
+
+.board-table tbody th {
+padding-left: 28px;
+padding-right: 14px;
+border-top: 1px solid #000;
+text-align: left;
+
+}
+
+.board-table tbody td {
+border-top: 1px solid #e7e7e7;
+text-align: center;
+}
+
+.board-table tbody th p{
+display: none;
+
+}
+
+.container {
+width: 1100px;
+margin: 0 auto;
+}
+
+.blind {
+position: absolute;
+overflow: hidden;
+clip: rect(0 0 0 0);
+margin: -1px;
+width: 1px;
+height: 1px;
+}
+
+.btn {
+display: inline-block;
+padding: 0 30px;
+font-size: 15px;
+font-weight: 400;
+background: transparent;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+cursor: pointer;
+border: 1px solid transparent;
+text-transform: uppercase;
+
+
+}
+
+.btn-dark {
+background: #555;
+color: #fff;
+list-style: none;
+text-decoration: none;
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+
+
+</style>
+
+</head>
+<body>
+<section class="list">
+	<div class="page-title">
+		<div class="container">
+			<h1>글 목록</h1>
+		</div>			
+	</div>
+	
+	<!-- 검색 부분 -->
+	<div id="board-search">
+		<div class="container">
+			<div class="search-window">
+				<form action="">
+					<div class="search-wrap">
+						<label for="search" class="blind">검색기능</label>
+						<input id="search" type="search" name="" placeholder="검색어를 입력하세요." value="">
+						<button type="submit" class="btn btn-dark">검색</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+	</div>
+	
+	<!-- ëª©ë¡ ë¶ë¶ -->
+	<div id="board-list">
+		<div class="container">
+			<table class="board-table" border=1 style="length:800px;">
+				<thead>
+				<tr>
+					<th scope="col" class="th-num">번호</th>
+					<th scope="col" class="th-title">제목</th>
+					<th scope="col" class="th-date">등록일</th>
+					
+					
+					
+				</tr>
+				</thead>
+				<tbody>
+			<tr>
+				<td>7</td>
+				<th>
+					<a href="">[공지사항 안내]</a>
+						<p>테스트</p>
+					
+				</th>
+				<td>2024.10.18</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<th><a href="#!">[공지] 핫픽스 14.0.1</a></th>
+				<td>2024.10.13</td>
+			
+			
+			
+			</tr>
+			
+			<tr>
+				<td>5</td>
+				<th><a href="#!">[공지] 패치노트 14.0.0</a></th>
+				<td>2024.10.12</td>
+			
+			
+			
+			</tr>
+			<tr>
+				<td>4</td>
+				<th><a href="#!">[공지] 패치노트 13.9.9</a></th>
+				<td>2024.10.02</td>
+			
+			
+			
+			</tr>
+			<tr>
+				<td>3</td>
+				<th><a href="#!">[공지] 패치노트 13.9.8</a></th>
+				<td>2024.09.22</td>
+			
+			
+			
+			</tr>
+			<tr>
+				<td>2</td>
+				<th><a href="#!">[공지] 패치노트 13.9.7</a></th>
+				<td>2024.09.12</td>
+			
+			
+			
+			</tr>
+			<tr>
+				<td>1</td>
+				<th><a href="#!">[공지] 패치노트 13.9.6</a></th>
+				<td>2024.08.22</td>
+			
+			
+			
+			</tr>
+			
+			
+			
+			</tbody>
+		
+			</table>
+
+		</div>
+		
+	</div>
+
+</section>
+
+
+</body>
+</html>
