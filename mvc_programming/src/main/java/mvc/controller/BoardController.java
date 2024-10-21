@@ -67,8 +67,8 @@ public class BoardController extends HttpServlet {
 			paramMethod="F";   // 포워드 방식은 내부에서 공유하는것이기 때문에 내부에서 활동하고 이동한다.
 			url = "/board/boardWrite.jsp";
 			
-		} else if (location.equals("board/boardWriteAction.aws")) {
-			System.out.println("board/boardWriteAction.aws");
+		} else if (location.equals("boardWriteAction.aws")) {
+			System.out.println("boardWriteAction.aws");
 			
 			// 1. 파라미터 값을 넘겨 받는다
 			String subject = request.getParameter("subject");
@@ -85,6 +85,7 @@ public class BoardController extends HttpServlet {
 			bv.setWriter(writer);
 			bv.setPassword(password);
 			bv.setMidx(midx);
+			System.out.println("값 들어옴?" + bv);
 			
 			
 			// 2. DB처리한다.
@@ -98,7 +99,7 @@ public class BoardController extends HttpServlet {
 				paramMethod="S";
 				url = request.getContextPath()+"/board/boardWrite.aws";
 			}
-			
+			System.out.println("값 들어옴?" + bd);
 			
 			
 			// 3. 처리후 이동한다 sendRedirect.

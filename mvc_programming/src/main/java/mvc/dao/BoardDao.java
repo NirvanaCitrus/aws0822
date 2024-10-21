@@ -108,10 +108,13 @@ public class BoardDao {
 		String password = bv.getPassword();
 		int midx = bv.getMidx();
 		
-		String sql = "insert into board(originbidx,depth,level_,subject,content,writer,password,midx)"
-				+ " value(null,0,0,'?','?','?','?','?')";
+		String sql = "insert into board(originbidx,depth,level_,subject,contents,writer,password,midx)"
+				+ " value(null,0,0,?,?,?,?,?)";
 		String sql2 = "update board set originbidx =(select A.maxbidx from(select max(bidx) as maxbidx from board)A)"
 				+ "where bidx= (select A.maxbidx from(select max(bidx) as maxbidx from board)A)";
+		
+		System.out.println("*"+sql);
+		System.out.println("$"+sql2);
 		
 		try {
 			conn.setAutoCommit(false);  // 수동커밋으로 하겠다
@@ -122,13 +125,17 @@ public class BoardDao {
 			pstmt.setString(4, password);
 			pstmt.setInt(5, midx);
 			int exec = pstmt.executeUpdate();   // 실행되면 1 안되면 0
+			System.out.println(2);
 			
 			pstmt = conn.prepareStatement(sql2);
 			int exec2 = pstmt.executeUpdate();   // 실행되면 1 안되면 0
+			System.out.println(3);
 			
 			conn.commit();  // 일괄처리 커밋
 			
 			value = exec+exec2;
+			
+			System.out.println(4);
 			
 		} catch (SQLException e) {
 			try {

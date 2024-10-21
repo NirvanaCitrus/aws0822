@@ -13,9 +13,9 @@ function check() {
 	  // 유효성 검사하기
 	  let fm = document.frm;
 	  
-	  if (fm.title.value == "") {
+	  if (fm.subject.value == "") {
 		  alert("제목을 입력해주세요");
-		  fm.title.focus();
+		  fm.subject.focus();
 		  return;
 	  } else if (fm.content.value == "") {
 		  alert("내용을 입력해주세요");
@@ -53,7 +53,7 @@ function check() {
 	<table class="writeTable">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="title"></td>
+			<td><input type="text" name="subject"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
