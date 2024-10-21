@@ -4,7 +4,9 @@
 <%@page import = "mvc.vo.*" %>    
 <% 
 ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
-System.out.println("alist==>" +alist);
+//System.out.println("alist==>" +alist);
+
+PageMaker pm = (PageMaker)request.getAttribute("pm");
 
 %>
 <!DOCTYPE html>
@@ -167,6 +169,35 @@ margin: 0;
 box-sizing: border-box;
 }
 
+.page ul {
+    display: flex; /* Makes the items in the list horizontally aligned */
+    justify-content: center; /* Centers the items */
+    list-style: none; /* Removes the bullet points */
+    padding: 0; /* Removes any default padding */
+}
+
+.page ul li {
+    margin: 0 5px; /* Adds spacing between the page numbers */
+}
+
+.page ul li a {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.page ul li a:hover {
+    background-color: #eee;
+}
+
+.page ul li.on a {
+    background-color: #555;
+    color: #fff;
+}
+
 
 
 </style>
@@ -228,16 +259,18 @@ box-sizing: border-box;
 			</div>
 			<div class="page">
 				<ul>
-					<il class="on">1</il>
-					<il>2</il>
-					<il>3</il>
-					<il>4</il>
-					<il>5</il>
-					<il>6</il>
+				<%if (pm.isPrev() == true) {%>
+				<li><a href="<%=request.getContextPath() %>/board/boardList.aws?page=<%=pm.getStartPage()-1%>">◀</a></li>
+				<%} %>
+				<%for(int i = pm.getStartPage(); i<= pm.getEndPage(); i++) {%>
+				<li <%if(i==pm.getCri().getPage()) {%>class="on"<%} %>>
+				<a href="<%=request.getContextPath() %>/board/boardList.aws?page=<%=i%>"><%=i %></a></li>
+				<%} %>
 					
-				
-				
-				
+				<%if(pm.isNext() == true && pm.getEndPage() > 0) {%>
+				<li><a href="<%=request.getContextPath() %>/board/boardList.aws?page=<%=pm.getEndPage()+1%>">▶</a></li>
+				<%} %>
+					
 				</ul>
 			
 			</div>

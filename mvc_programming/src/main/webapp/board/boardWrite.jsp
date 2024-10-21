@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글쓰기</title>
-<link href="./style.css" rel="stylesheet">
+<link href="../css/style2.css" rel="stylesheet">
 <script> 
 
 function check() {
@@ -25,12 +25,16 @@ function check() {
 		  alert("작성자를 입력해주세요");
 		  fm.writer.focus();
 		  return;
+	  } else if (fm.password.value == "") {
+		  alert("비밀번호를 입력해주세요");
+		  fm.password.focus();
+		  return;
 	  }
 	  
-	  let ans = confirm("저장하시겠습니까?");
+	  let ans = confirm("저장하시겠습니까?");  // 함수의 값은 참과 거짓 true false 로 나눈다.
 	  
 	  if (ans == true) {
-		  fm.action="./list.html";
+		  fm.action="<%=request.getContextPath()%>/board/boardWriteAction.aws";
 		  fm.method="post";
 		  fm.submit();
 	  }	  
@@ -61,17 +65,17 @@ function check() {
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="password"></td>
+			<td><input type="password" name="password"></td>
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><input type="file"></td>
+			<td><input type="file" name="uploadfile"></td>
 		</tr>
 	</table>
 	
 	<div class="btnBox">
 		<button type="button" class="btn" onclick="check();">저장</button>
-		<a class="btn aBtn" href="./list.html">취소</a>
+		<a class="btn aBtn" onclick="history.back();">취소</a>
 	</div>	
 </form>
 
