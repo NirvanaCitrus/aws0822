@@ -42,6 +42,7 @@ public class BoardDao {
 				String contents = rs.getString("contents");
 				String writer = rs.getString("writer");
 				int viewcnt = rs.getInt("viewcnt");
+				int recom = rs.getInt("recom");
 				String writeDay = rs.getString("writeday");
 				
 				BoardVo bv = new BoardVo();  // 첫행부터 mv에 옮겨담기
@@ -50,6 +51,7 @@ public class BoardDao {
 				bv.setContents(contents);
 				bv.setViewcnt(viewcnt);
 				bv.setWriter(writer);
+				bv.setRecom(recom);
 				bv.setWriteday(writeDay);
 				alist.add(bv);	
 			}
@@ -155,6 +157,159 @@ public class BoardDao {
 		
 		return value;
 	}
+	
+	public BoardVo boardSelectOne(int bidx) {
+		//1.형식부터 만든다
+		BoardVo bv = null;
+		//2.사용할 쿼리를 준비한다
+		String sql="select * from board where delyn='N' and bidx=?";
+		
+		ResultSet rs = null;   
+		try {
+			//3.conn 연결객체에서 쿼리실행 구문 클래스를 불러온다
+			pstmt = conn.prepareStatement(sql); //멤버변수(전역변수)로 선언한 PreparedStatement 객체로 담음
+			pstmt.setInt(1, bidx);    // 첫번째 물음표에 매개변수 bidx값을 담아서 구문을 완성한다
+			rs = pstmt.executeQuery();  //쿼리를 실행해서 결과값을 컬럼전용클래스인 ResultSet 객체에 담는다(복사기능)
+			
+			if(rs.next() ==true) {   //rs.next()는 커서를 다음줄로 이동시킨다. 맨처음 커서는 상단에 위치되어있다.
+				//값이 존재한다면 BoardVo 객체에 담는다
+				String subject = rs.getString("subject");
+				String contents = rs.getString("contents");
+				String writer  = rs.getString("writer");
+				String writeday = rs.getString("writeday");
+				int viewcnt = rs.getInt("viewcnt");
+				int recom = rs.getInt("recom");
+				String filename= rs.getString("filename");
+				int rtnBidx = rs.getInt("bidx");
+				int originbidx = rs.getInt("originbidx");
+				int depth = rs.getInt("depth");
+				int level_ = rs.getInt("level_");
+				String password = rs.getString("password");
+				
+				bv = new BoardVo();  //객체생성해서 지역변수 bv로 담아서 리턴해서 가져간다
+				bv.setSubject(subject);
+				bv.setContents(contents);
+				bv.setWriter(writer);
+				bv.setWriteday(writeday);
+				bv.setViewcnt(viewcnt);
+				bv.setRecom(recom);
+				bv.setFilename(filename);		
+				bv.setBidx(rtnBidx);
+				bv.setOriginbidx(originbidx);
+				bv.setDepth(depth);
+				bv.setLevel_(level_);
+				bv.setPassword(password);
+			}			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			try {     // 각 객체도 소멸시키고 DB연결 끊는다	
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}	
+		}	   		
+		
+		return bv;
+	}
+	
+	//게시물 수정하기
+		public int boardUpdate(BoardVo bv) {
+			System.out.println("VO 들어오니?");
+			
+			int value=0;
+			String sql="update board set subject=?,contents=?,writer=?, modifyday= now() where bidx=? and password=?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bv.getSubject());
+				pstmt.setString(2, bv.getContents());
+				pstmt.setString(3, bv.getWriter());
+				pstmt.setInt(4, bv.getBidx());
+				pstmt.setString(5, bv.getPassword());
+				value = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}finally {
+				try {     // 각 객체도 소멸시키고 DB연결 끊는다					
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {			
+					e.printStackTrace();
+				}	
+			}				
+			
+			return value;
+		}
+	
+	public int boardViewCntUpdate (int bidx) {
+		
+		int value = 0;
+		String sql = "update board set viewcnt = viewcnt+1 where bidx = ?";
+		// 메소드 완성시키기
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bidx);
+			value = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			try {     // 각 객체도 소멸시키고 DB연결 끊는다					
+				pstmt.close();
+				//conn.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}	
+		}	
+		
+		
+		
+		return value;
+	}
+	
+	public int boardRecomUpdate (int bidx) {
+		
+		int value = 0;
+		int recom = 0;
+		String sql = "update board set recom = recom+1 where bidx=?";
+		String sql2 = "select recom from board where bidx=?";
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bidx);
+			value = pstmt.executeUpdate();  // 성공하면 1 실패하면 0
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, bidx);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {   // rs커서가 이동을해서 recom 변수가 있으면 recom에 다시 담아서 반환
+				recom = rs.getInt("recom");
+				
+			}			
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			try {     // 각 객체도 소멸시키고 DB연결 끊는다					
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}	
+		}	
+		
+		
+		
+		
+		return recom;
+	}
+	
 	
 	
 

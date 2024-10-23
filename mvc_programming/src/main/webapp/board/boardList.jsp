@@ -4,7 +4,7 @@
 <%@page import = "mvc.vo.*" %>    
 <% 
 ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
-//System.out.println("alist==>" +alist);
+System.out.println("alist==>" +alist);
 
 PageMaker pm = (PageMaker)request.getAttribute("pm");
 
@@ -236,6 +236,7 @@ box-sizing: border-box;
 					<th>제목</th>
 					<th>작성자</th>
 					<th>조회</th>
+					<th>추천</th>
 					<th>날짜</th>			
 				</tr>
 				</thead>
@@ -244,9 +245,13 @@ box-sizing: border-box;
 				<%for(BoardVo bv : alist) {%>
 			<tr>
 				<td><%=bv.getBidx() %></td>
-				<td class="title"><a><%=bv.getSubject() %></a></td>
+				<td class="title">
+				<a href="<%=request.getContextPath() %>/board/boardContents.aws?bidx=<%=bv.getBidx() %>"><%=bv.getSubject() %>
+				</a>
+				</td>  <!-- 제목에 a 태그 가상링크를 걸어서 글 제목을 클릭하면 상세 내용을 볼수 있게 -->
 				<td><%=bv.getWriter() %></td>
 				<td><%=bv.getViewcnt() %></td>
+				<td><%=bv.getRecom() %></td>
 				<td><%=bv.getWriteday() %></td>
 			</tr>
 			<%} %>

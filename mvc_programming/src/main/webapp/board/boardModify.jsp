@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="mvc.vo.BoardVo"%>
+    
+<%
+	BoardVo bv = (BoardVo)request.getAttribute("bv");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글쓰기</title>
+<title>글수정</title>
 <link href="../css/style2.css" rel="stylesheet">
 <script> 
 
@@ -17,28 +23,27 @@ function check() {
 		  alert("제목을 입력해주세요");
 		  fm.subject.focus();
 		  return;
-	  } else if (fm.content.value == "") {
+	  } else if (fm.contents.value == "") {
 		  alert("내용을 입력해주세요");
-		  fm.content.focus();
+		  fm.contents.focus();
 		  return;
 	  } else if (fm.writer.value == "") {
 		  alert("작성자를 입력해주세요");
 		  fm.writer.focus();
 		  return;
-	  } else if (fm.password.value == "") {
+ 	  } else if (fm.password.value == "") {
 		  alert("비밀번호를 입력해주세요");
 		  fm.password.focus();
-		  return;
+		  return; 
 	  }
 	  
-	  let ans = confirm("저장하시겠습니까?");  // 함수의 값은 참과 거짓 true false 로 나눈다.
+	  let ans = confirm("저장하시겠습니까?");
 	  
 	  if (ans == true) {
-		  fm.action="<%=request.getContextPath()%>/board/boardWriteAction.aws";
+		  fm.action="<%=request.getContextPath()%>/board/boardModifyAction.aws";
 		  fm.method="post";
-		  fm.enctype="multipart/form-data";  // 파일 형식을 지정을 해주어서 올려야하는데 파일은 바이너리 임으로 fm 객체 안에 있는 enctype을 이용.
 		  fm.submit();
-	  }	  
+	  }
 	  
 	  return;
 }
@@ -47,22 +52,23 @@ function check() {
 </head>
 <body>
 <header>
-	<h2 class="mainTitle">글쓰기</h2>
+	<h2 class="mainTitle">글수정</h2>
 </header>
 
 <form name="frm">
+	<input type="hidden" name="bidx" value="<%=bv.getBidx()%>">  <!-- bidx값이 수정할때 필요해서 hidden으로 안보이게 한 input에 넣어서 controller로 보낸다. -->
 	<table class="writeTable">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="subject"></td>
+			<td><input type="text" name="subject" value="<%=bv.getSubject()%>"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea name="content" rows="6"></textarea></td>
+			<td><textarea name="contents" rows="6"><%=bv.getContents()%></textarea></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="writer"></td>
+			<td><input type="text" name="writer" value="<%=bv.getWriter()%>"></td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
@@ -70,13 +76,13 @@ function check() {
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><input type="file" name="filename"></td>
+			<td><input type="file" name="uploadfile"></td>
 		</tr>
 	</table>
 	
 	<div class="btnBox">
 		<button type="button" class="btn" onclick="check();">저장</button>
-		<a class="btn aBtn" onclick="history.back();">취소</a>
+		<a class="btn aBtn" href="./detail.html">취소</a>
 	</div>	
 </form>
 

@@ -13,7 +13,11 @@ import mvc.vo.Criteria;
 import mvc.vo.PageMaker;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 @WebServlet("/BoardController")
@@ -70,6 +74,17 @@ public class BoardController extends HttpServlet {
 		} else if (location.equals("boardWriteAction.aws")) {
 			System.out.println("boardWriteAction.aws");
 			
+			/*
+			 * //저장될 위치 String savePath ="D:\\"; int sizeLimit = 15*1024*1024; //15M String
+			 * dataType ="UTF-8"; DefaultFileRenamePolicy policy = new
+			 * DefaultFileRenamePolicy();
+			 * 
+			 * MultipartRequest multi = new
+			 * MultipartRequest(request,savePath,sizeLimit,dataType,policy);
+			 */
+			
+			
+			
 			// 1. 파라미터 값을 넘겨 받는다
 			String subject = request.getParameter("subject");
 			String content = request.getParameter("content");
@@ -107,7 +122,103 @@ public class BoardController extends HttpServlet {
 			url = request.getContextPath()+"/board/boardList.aws";
 			
 			
-		}
+		}else if (location.equals("boardContents.aws")) {
+			System.out.println("boardContents.aws");
+			
+			// 1. 넘어온 값 받기ㅔ
+			String bidx = request.getParameter("bidx");
+			System.out.println("bidx --->" +bidx);
+			int bidxInt = Integer.parseInt(bidx);
+			System.out.println("CobidxInt"+bidxInt);
+			
+			// 2. 처리하기
+			BoardDao bd = new BoardDao();
+			int value = bd.boardViewCntUpdate(bidxInt);
+			BoardVo bv = bd.boardSelectOne(bidxInt);  // 생성한 메소드 호출(해당되는 bidx의 게시물 데이터 가져옴)
+			
+			
+			request.setAttribute("bv", bv);  // 포워드 방식이라 같은 영역안에 있어서 공유해서 jsp 페이지에서 꺼내쓸수있다
+			System.out.println("Cobv" +bv);
+			
+			// 3. 이동해서 화면 보여주기
+			paramMethod = "F";  // 화면을 보여주기 위해 이동
+			url = "/board/boardContents.jsp";
+			
+			
+		}else if (location.equals("boardModify.aws")) {
+			System.out.println("boardModify.aws");
+			
+			String bidx = request.getParameter("bidx");
+			int bidxInt = Integer.parseInt(bidx);	
+			BoardDao bd = new BoardDao(); 
+			BoardVo bv = bd.boardSelectOne(bidxInt); 
+			
+			request.setAttribute("bv", bv);
+			
+			paramMethod="F"; 			
+			url= "/board/boardModify.jsp";
+			
+		}else if(location.equals("boardModifyAction.aws")) {
+			System.out.println("boardModifyAction.aws");
+			
+			String subject = request.getParameter("subject");
+			String contents = request.getParameter("contents");
+			String writer = request.getParameter("writer");
+			String password = request.getParameter("password");
+			String bidx = request.getParameter("bidx");
+			int bidxInt = Integer.parseInt(bidx);   //숫자형변환
+			
+			BoardDao bd = new BoardDao(); 
+			BoardVo bv = bd.boardSelectOne(bidxInt); // 원본 게시글 내용이 담긴 bv
+			
+			paramMethod="S"; 
+			
+			//비밀번호 체크
+			if (password.equals(bv.getPassword())) {				
+				
+				// 비밀번호가 일치하면	
+				BoardDao bd2 = new BoardDao();
+				BoardVo bv2 = new BoardVo();  // 수정할 게시글을 담을 bv
+				bv2.setSubject(subject);
+				bv2.setContents(contents);
+				bv2.setWriter(writer);
+				bv2.setPassword(password);
+				bv2.setBidx(bidxInt);
+				
+				int value = bd2.boardUpdate(bv2);
+				
+				if(value == 1) {
+					request.setAttribute("bv", bv);	
+					url ="/board/boardContents.aws?bidx="+bidx;	
+					
+				} else {
+					url ="/board/boardModify.aws?bidx="+bidx;
+				}
+			}else {
+				//비밀번호가 다르면
+				
+				url= request.getContextPath()+"/board/boardModify.aws?bidx="+bidx;
+			}			
+					
+		}else if (location.equals("boardRecom.aws")) {
+			
+			String bidx = request.getParameter("bidx");
+			int bidxInt = Integer.parseInt(bidx);
+			
+			BoardDao bd = new BoardDao();
+			int recom = bd.boardRecomUpdate(bidxInt);
+			
+			PrintWriter out = response.getWriter();
+			out.println("{\"recom\": \" "+recom+" \"}");   // json 파일 형태대로 받는 걸로 만듬.
+			
+			
+		//	paramMethod="S";
+		//	url="/board/boardContents.aws?bidx="+bidx;
+			
+			
+			
+		}		
+		
 		
 		
 		
